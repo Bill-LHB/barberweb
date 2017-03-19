@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-3-16 23:50:24 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.lhb.barber.model.User" table="USER_info">
+        <id name="user_id" type="int">
+            <column name="USER_ID" />
+            <generator class="native" />
+        </id>
+        <property name="user_name" type="java.lang.String">
+            <column name="USER_NAME" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="PASSWORD" />
+        </property>
+        
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+        <property name="state" type="int">
+            <column name="STATE" />
+        </property>
+        <many-to-one name="role" class="com.lhb.barber.model.Role" fetch="join">
+            <column name="ROLE_ID" />
+        </many-to-one>
+        <set name="orderSet" table="ORDER_info" inverse="false" lazy="true">
+            <key>
+                <column name="USER_ID" />
+            </key>
+            <one-to-many class="com.lhb.barber.model.Order" />
+        </set>
+    </class>
+</hibernate-mapping>

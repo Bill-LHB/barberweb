@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-3-16 23:50:24 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="com.lhb.barber.model.MenmberMode" table="MENMBERMODE_info">
+		<id name="m_id" type="int">
+			<column name="M_ID" />
+			<generator class="native" />
+		</id>
+		<property name="m_name" type="java.lang.String">
+			<column name="M_NAME" />
+		</property>
+		<property name="m_isOverlay" type="int">
+			<column name="M_ISOVERLAY" />
+		</property>
+		<property name="m_description" type="java.lang.String">
+			<column name="M_DESCRIPTION" />
+		</property>
+		<set name="combinationSet" table="COMBINATION_info" inverse="false"
+			lazy="true">
+			<key>
+				<column name="MENMBERMODE_ID" />
+			</key>
+			<one-to-many class="com.lhb.barber.model.Combination" />
+		</set>
+		<set name="memberSet" table="MEMBER_info" inverse="false" lazy="true">
+			<key>
+				<column name="MENMBERMODE_ID" />
+			</key>
+			<one-to-many class="com.lhb.barber.model.Member" />
+		</set>
+	</class>
+</hibernate-mapping>

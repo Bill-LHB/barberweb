@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-3-16 23:50:24 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.lhb.barber.model.Post" table="POST_info">
+        <id name="post_id" type="int">
+            <column name="POST_ID" />
+            <generator class="native" />
+        </id>
+        <property name="post_name" type="java.lang.String">
+            <column name="POST_NAME" />
+        </property>
+        <property name="post_wage" type="java.lang.String">
+            <column name="POST_WAGE" />
+        </property>
+    
+        
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+           <set name="employeeSet" table="EMPLOYEE_info" inverse="false" lazy="true">
+            <key>
+                <column name="POST_ID" />
+            </key>
+            <one-to-many class="com.lhb.barber.model.Employee" />
+        </set>
+        
+        
+        
+        
+        <many-to-one name="department" class="com.lhb.barber.model.Department" fetch="join">
+            <column name="DEPARTMENT_ID" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

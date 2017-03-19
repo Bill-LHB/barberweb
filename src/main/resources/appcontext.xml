@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/aop
+            http://www.springframework.org/schema/aop/spring-aop.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+
+	<context:component-scan base-package="com.lhb.barber">
+		<!-- 除了base-package包下@Controller注解全都扫描 -->
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+
+	<!-- 数据库连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<!-- 数据库连接属性必填 -->
+		<!-- 设置数据库驱动 -->
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<!-- 设置数据库URL -->
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/barber" />
+		<!-- 数据库用户名 -->
+		<property name="user" value="root" />
+		<!-- 数据库密码 -->
+		<property name="password" value="123456" />
+		
+		<!-- 其它配置 -->
+		<!-- 初始化时获取三个连接，取值应在minPoolSize与maxPoolSize之间。Default：3 -->
+		<property name="initialPoolSize" value="3" />
+		<!-- 最小连接数 -->
+		<property name="minPoolSize" value="2" />
+		<!-- 最大连接数 -->
+		<property name="maxPoolSize" value="3" />
+		<!-- 最大的PreparedStatement的数量 -->
+		<property name="maxStatements" value="100" />
+		<!-- 当连接池里面的连接用完的时候，C3P0一下获取的新的连接数 -->
+		<property name="acquireIncrement" value="2" />
+		<!-- 每隔120秒检查连接池里的空闲连接 ，单位是秒 -->
+		<property name="idleConnectionTestPeriod" value="120" />
+		<!-- 获得连接的超时时间,如果超过这个时间,会抛出异常，单位毫秒 -->
+		<property name="maxIdleTime" value="3600" />
+	</bean>
+	
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 设置hibernate参数 -->
+		<property name="hibernateProperties">
+			<props>      
+				<!-- 指定对应数据库的方言，hibernate为了更好适配各种关系数据库，针对每种数据库都指定了一个方言dialect -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<!-- 指定ddl的生成方式 -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
+				<!-- 输出sql语句 -->
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- 格式化输出sql语句 -->
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- 配置CurrentSessionContext 使用getCurrentSession()获取Session实例时 -->
+				<!-- <prop key="hibernate.current_session_context_class">thread</prop> -->
+				<prop key="javax.persistence.validation.mode">none</prop>
+				<prop key="current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+				 <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>   
+				 <prop key="hibernate.cache.use_query_cache">false</prop>          
+            	<prop key="jdbc.use_scrollable_resultset">false</prop>  
+			</props>
+		</property>
+		<!-- 配置映射 -->
+		<property name="mappingLocations">
+			<list>
+				<!-- <value>classpath*:/com/lhb/barber/config/commodity/*.hbm.xml</value>
+				<value>classpath*:/com/lhb/barber/config/user/*.hbm.xml</value> -->
+				<value>classpath*:/com/lhb/barber/config/*.hbm.xml</value>
+			</list>
+		</property>
+		<!-- <property name="mappingResources">
+			<list>
+				<value>com/lhb/barber/config/commodity/Category.hbm.xml</value>
+				<value>com/lhb/barber/config/commodity/Commodity.hbm.xml</value>
+			</list>
+		</property> -->
+	</bean>
+
+	<!-- 事务管理bean -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>	
+	
+	<!-- 用注解来实现事务管理 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+</beans>

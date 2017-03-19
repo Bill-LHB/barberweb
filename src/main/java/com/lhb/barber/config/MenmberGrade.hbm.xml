@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-3-16 23:50:24 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.lhb.barber.model.MenmberGrade" table="MENMBERGRADE_info">
+        <id name="menmberGrade_id" type="int">
+            <column name="MENMBERGRADE_ID" />
+            <generator class="native" />
+        </id>
+        <property name="menmberGrade_name" type="java.lang.String">
+            <column name="MENMBERGRADE_NAME" />
+        </property>
+        <property name="menmberGrade_discount" type="java.lang.String">
+            <column name="MENMBERGRADE_DISCOUNT" />
+        </property>
+        <property name="menmberGrade_description" type="java.lang.String">
+            <column name="MENMBERGRADE_DESCRIPTION" />
+        </property>
+        <set name="memberSet" table="MEMBER_info" inverse="false" lazy="true">
+            <key>
+                <column name="MENMBERGRADE_ID" />
+            </key>
+            <one-to-many class="com.lhb.barber.model.Member" />
+        </set>
+    </class>
+</hibernate-mapping>

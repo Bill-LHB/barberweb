@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-3-16 23:50:24 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.lhb.barber.model.Combination" table="COMBINATION_info">
+        <id name="combination_id" type="int">
+            <column name="COMBINATION_ID" />
+            <generator class="native" />
+        </id>
+        <property name="combination_number" type="int">
+            <column name="COMBINATION_NUMBER" />
+        </property>
+        <property name="combination_money" type="java.lang.String">
+            <column name="COMBINATION_MONEY" />
+        </property>
+        <property name="combination_ratio" type="java.lang.String">
+            <column name="COMBINATION_RATIO" />
+        </property>
+        <property name="combination_extra" type="java.lang.String">
+            <column name="COMBINATION_EXTRA" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+        
+        
+        <many-to-one name="menmberMode" class="com.lhb.barber.model.MenmberMode" fetch="join">
+            <column name="MENMBERMODE_ID" />
+        </many-to-one>
+        
+        
+    </class>
+</hibernate-mapping>

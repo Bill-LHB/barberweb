@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-3-16 23:50:24 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.lhb.barber.model.Order" table="ORDER_info">
+        <id name="Order_id" type="int">
+            <column name="ORDER_ID" />
+            <generator class="native" />
+        </id>
+        <property name="Order_Date" type="java.util.Date">
+            <column name="ORDER_DATE" />
+        </property>
+        <property name="Order_money" type="java.lang.String">
+            <column name="ORDER_MONEY" />
+        </property>
+        <property name="Order_cash" type="java.lang.String">
+            <column name="ORDER_CASH" />
+        </property>
+        <many-to-one name="member" class="com.lhb.barber.model.Member" fetch="join">
+            <column name="MEMBER_ID" />
+        </many-to-one>
+        <many-to-one name="user" class="com.lhb.barber.model.User" fetch="join">
+            <column name="USER_ID" />
+        </many-to-one>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+          <set name="commoditySet" table="order_commodity_employee" inverse="false" lazy="true">
+            <key>
+                <column name="ORDER_ID" />
+            </key>
+            <many-to-many class="com.lhb.barber.model.Commodity"
+            column="COMMODITY_ID"> </many-to-many>
+        </set>
+             <set name="employeeSet" table="order_commodity_employee" inverse="false" lazy="true">
+            <key>
+                <column name="ORDER_ID" />
+            </key>
+            <many-to-many class="com.lhb.barber.model.Employee"
+            column="EMPLOYEE_ID"> </many-to-many>
+        </set>
+        <!-- <set name="commoditySet" table="COMMODITY_info" inverse="false" lazy="true">
+            <key>
+                <column name="ORDER_ID" />
+            </key>
+            <one-to-many class="com.lhb.barber.model.Commodity" />
+        </set>
+        <set name="employeeSet" table="EMPLOYEE_info" inverse="false" lazy="true">
+            <key>
+                <column name="ORDER_ID" />
+            </key>
+            <one-to-many class="com.lhb.barber.model.Employee" />
+        </set> -->
+    </class>
+</hibernate-mapping>

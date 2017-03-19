@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-3-16 23:50:24 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.lhb.barber.model.Employee" table="EMPLOYEE_info">
+        <id name="employee_id" type="int">
+            <column name="EMPLOYEE_ID" />
+            <generator class="native" />
+        </id>
+        <property name="employee_name" type="java.lang.String">
+            <column name="EMPLOYEE_NAME" />
+        </property>
+        <property name="employee_number" type="java.lang.String">
+            <column name="EMPLOYEE_NUMBER" />
+        </property>
+        <property name="headurl" type="java.lang.String">
+            <column name="HEADURL" />
+        </property>
+        <property name="employee_identity" type="java.lang.String">
+            <column name="EMPLOYEE_IDENTITY" />
+        </property>
+        <property name="employee_phone" type="java.lang.String">
+            <column name="EMPLOYEE_PHONE" />
+        </property>
+        <property name="employee_sex" type="java.lang.String">
+            <column name="EMPLOYEE_SEX" />
+        </property>
+        <property name="employee_age" type="java.lang.String">
+            <column name="EMPLOYEE_AGE" />
+        </property>
+        <property name="employee_birth" type="java.util.Date">
+            <column name="EMPLOYEE_BIRTH" />
+        </property>
+        <property name="employee_entry" type="java.util.Date">
+            <column name="EMPLOYEE_ENTRY" />
+        </property>
+        <property name="employee_card" type="java.lang.String">
+            <column name="EMPLOYEE_CARD" />
+        </property>
+        <property name="description" type="java.lang.String">
+            <column name="DESCRIPTION" />
+        </property>
+        <property name="employeeStatus" type="int">
+            <column name="EMPLOYEESTATUS" />
+        </property>
+     <many-to-one name="employee_post" class="com.lhb.barber.model.Post" fetch="join">
+            <column name="POST_ID" />
+        </many-to-one> 
+        
+        
+        
+        
+        <set name="commoditySet" table="order_commodity_employee" inverse="false" lazy="true">
+			<key>
+				<column name="EMPLOYEE_ID" />
+			</key>
+			<many-to-many class="com.lhb.barber.model.Commodity"
+				column="COMMODITY_ID">
+			</many-to-many>
+		</set>
+		<set name="orderSet" table="order_commodity_employee" inverse="false" lazy="true">
+			<key>
+				<column name="EMPLOYEE_ID" />
+			</key>
+			<many-to-many class="com.lhb.barber.model.Order"
+				column="ORDER_ID">
+			</many-to-many>
+		</set>
+       <!--  <set name="commoditySet" table="COMMODITY_info" inverse="false" lazy="true">
+            <key>
+                <column name="EMPLOYEE_ID" />
+            </key>
+            <one-to-many class="com.lhb.barber.model.Commodity" />
+        </set>
+        <set name="orderSet" table="ORDER_info" inverse="false" lazy="true">
+            <key>
+                <column name="EMPLOYEE_ID" />
+            </key>
+            <one-to-many class="com.lhb.barber.model.Order" />
+        </set> -->
+    </class>
+</hibernate-mapping>

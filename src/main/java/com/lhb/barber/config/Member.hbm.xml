@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-3-16 23:50:24 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.lhb.barber.model.Member" table="MEMBER_info">
+        <id name="member_id" type="int">
+            <column name="MEMBER_ID" />
+            <generator class="native" />
+        </id>
+        <property name="member_number" type="java.lang.String">
+            <column name="MEMBER_NUMBER" />
+        </property>
+        <property name="member_name" type="java.lang.String">
+            <column name="MEMBER_NAME" />
+        </property>
+        <property name="member_money" type="java.lang.String">
+            <column name="MEMBER_MONEY" />
+        </property>
+        <property name="member_password" type="java.lang.String">
+            <column name="MEMBER_PASSWORD" />
+        </property>
+        <property name="member_sex" type="java.lang.String">
+            <column name="MEMBER_SEX" />
+        </property>
+        <property name="member_identity" type="java.lang.String">
+            <column name="MEMBER_IDENTITY" />
+        </property>
+        <property name="member_phone" type="java.lang.String">
+            <column name="MEMBER_PHONE" />
+        </property>
+        <property name="member_register" type="java.sql.Date">
+            <column name="MEMBER_REGISTER" />
+        </property>
+        <property name="member_integral" type="int">
+            <column name="MEMBER_INTEGRAL" />
+        </property>
+        <property name="member_birthday" type="java.sql.Date">
+            <column name="MEMBER_BIRTHDAY" />
+        </property>
+        <property name="member_address" type="java.lang.String">
+            <column name="MEMBER_ADDRESS" />
+        </property>
+        <property name="headurl" type="java.lang.String">
+            <column name="HEADURL" />
+        </property>
+        <property name="member_remark" type="java.lang.String">
+            <column name="MEMBER_REMARK" />
+        </property>
+        <property name="member_status" type="int">
+            <column name="MEMBER_STATUS" />
+        </property>
+        <many-to-one name="member_mode" class="com.lhb.barber.model.MenmberMode" fetch="join">
+            <column name="MENMBERMODE_ID" />
+        </many-to-one>
+        <many-to-one name="member_grade" class="com.lhb.barber.model.MenmberGrade" fetch="join">
+            <column name="MENMBERGRADE_ID" />
+        </many-to-one>
+        <set name="orderSet" table="ORDER_info" inverse="false" lazy="true">
+            <key>
+                <column name="MEMBER_ID" />
+            </key>
+            <one-to-many class="com.lhb.barber.model.Order" />
+        </set>
+    </class>
+</hibernate-mapping>
